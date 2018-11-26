@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Hello, WebVR! • A-Frame</title>
+  <meta name="description" content="Hello, WebVR! • A-Frame">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/css/mdb.min.css" rel="stylesheet">
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/js/mdb.min.js"></script>
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+  <script type="text/javascript" src="./js/aframe.js"></script>
+  <script type="text/javascript" src="./js/joystick.js"></script>
+  <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+  <script>
+
+    var modeJoyStick;
+
+    var wmsParams = {
+      url: "https://proba-v-mep.esa.int/applications/geo-viewer/app/mapcache/wms",
+      x: 574049.2483930753,
+      y: 6662158.227707739,
+      layers: "CGS_S2_RADIOMETRY",
+      time: "2018-11-04T10:44:26.000Z",
+      scale: 20
+    };
+
+    var stepSize = 100;
+
+    $(document).ready(function(){
+      updateWMSPlane(wmsParams);
+      initJoyStick();
+    });
+
+
+    function initJoyStick(){
+      moveJoyStick	= new VirtualJoystick({
+        container	: document.getElementById('move-container'),
+        mouseSupport	: true,
+      });
+      moveJoyStick.addEventListener('touchStart', function(){
+        ;console.log('down')
+      })
+      moveJoyStick.addEventListener('touchEnd', function(){
+        console.log('up')
+      });
+
+      setInterval(function(){
+        console.log(''
+          + ' dx:'+moveJoyStick.deltaX()
+          + ' dy:'+moveJoyStick.deltaY()
+          + (moveJoyStick.right()	? ' right'	: '')
+          + (moveJoyStick.up()	? ' up'		: '')
+          + (moveJoyStick.left()	? ' left'	: '')
+          + (moveJoyStick.down()	? ' down' 	: '')
+        );
+      }, 1/30 * 1000);
+
+
+    }
+
+    function goUp(){
+      wmsParams.x += stepSize;
+      updateWMSPlane(wmsParams);
+    }
+
+
+    function updateWMSPlane(params) {
+      $("#wmsPlane").attr("wms", JSON.stringify(params).replace(/[\"\{\}]/g, "").replace(/,/g, ";"));
+    }
+
+
+
+  </script>
+</head>
+<body>
+      <div id="arscene">
+        <a-scene embedded>
+          <a-text value="Hello, World!"></a-text>
+          <a-plane id="wmsPlane" position="0 0 -10" rotation="-90 0 0" width="20" height="30" color="#7BC8A4" shadow></a-plane>
+          <!--<a-marker-camera preset='hiro'></a-marker-camera>-->
+        </a-scene>
+      </div>
+      <div id="move-container">
+      </div>
+</body>
+</html>

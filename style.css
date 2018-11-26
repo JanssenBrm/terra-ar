@@ -1,0 +1,30 @@
+body, html {
+  height: 100% !important;
+  width: 100% !important;
+  margin:0 !important;
+}
+
+.container {
+  min-height: 100%;
+  min-width: 100%;
+  margin:0;
+}
+.fullh-row{
+  min-height: 100vh;
+}
+
+#arscene{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+
+#move-container {
+  min-height: 100vh;
+  width: 10%;
+  background-color: rgba(255,255,255, 0.5);
+  position: absolute;
+  top:0;
+  left:0;
+}
