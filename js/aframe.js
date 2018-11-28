@@ -58,12 +58,12 @@ AFRAME.registerComponent("wms", {
 
 
     el.setAttribute("geometry", "buffer", false);
-   // el.setAttribute("material", "src", this.constructURL(this.data));
+    el.setAttribute("material", "src", this.constructURL(this.data));
     el.removeAttribute("material", "color");
 
     var texture = this.getTexture(this.data);
 
-    this.createTerrain(this.data, texture);
+   // this.createTerrain(this.data, texture);
 
     /*el.setAttribute("material", "src", url);
     el.removeAttribute("material", "color");*/
