@@ -32,11 +32,11 @@
 
     var wmsParams = {
       url: "https://proba-v-mep.esa.int/applications/geo-viewer/app/mapcache/wms",
-      x: 574049.2483930753,
-      y: 6662158.227707739,
+      x: 582961.5987497661,
+      y: 6634435.491672943,
       layers: "CGS_S2_RADIOMETRY",
-      time: "2018-11-04T10:44:26.000Z",
-      scale: 20
+      time: "2018-11-17T10:03:01.000Z",
+      scale: 40
     };
 
     var stepSize = 100;
@@ -48,7 +48,7 @@
 
 
     function initJoyStick(){
-      moveJoyStick	= new VirtualJoystick({
+     /* moveJoyStick	= new VirtualJoystick({
         container	: document.getElementById('move-container'),
         mouseSupport	: true,
       });
@@ -57,9 +57,9 @@
       })
       moveJoyStick.addEventListener('touchEnd', function(){
         console.log('up')
-      });
+      });*/
 
-      setInterval(function(){
+      /*setInterval(function(){
         console.log(''
           + ' dx:'+moveJoyStick.deltaX()
           + ' dy:'+moveJoyStick.deltaY()
@@ -68,7 +68,7 @@
           + (moveJoyStick.left()	? ' left'	: '')
           + (moveJoyStick.down()	? ' down' 	: '')
         );
-      }, 1/30 * 1000);
+      }, 1/30 * 1000);*/
 
 
     }
@@ -89,13 +89,10 @@
 </head>
 <body>
       <div id="arscene">
-        <a-scene embedded>
-          <a-text value="Hello, World!"></a-text>
+        <a-scene embedded arjs>
           <a-plane id="wmsPlane" position="0 0 -10" rotation="-90 0 0" width="20" height="30" color="#7BC8A4" shadow></a-plane>
-          <!--<a-marker-camera preset='hiro'></a-marker-camera>-->
+          <a-marker-camera preset='hiro'></a-marker-camera>
         </a-scene>
-      </div>
-      <div id="move-container">
       </div>
 </body>
 </html>
